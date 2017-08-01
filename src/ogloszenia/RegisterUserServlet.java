@@ -34,7 +34,6 @@ public class RegisterUserServlet extends HttpServlet {
 			UserRepository.persist(user);
 		}
 		
-		
 	}
 
 	private boolean isNotValid(String nick, String password, String email, String location) {

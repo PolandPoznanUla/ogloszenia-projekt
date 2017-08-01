@@ -55,7 +55,7 @@ public class Advertisement {
 	@Column(nullable=false)
 	Boolean isActive;
 	
-	@Column(nullable=false)
+	@Column(nullable=true)
 	Boolean isPremium;
 	
 	@Column(nullable=false)
@@ -75,7 +75,7 @@ public class Advertisement {
 	Set<User> watchers;
 	
 	@OneToMany(mappedBy="advertisement")
-	Set<Message> messages;
+	Set<Conversation> messages;
 	
 	@OneToMany(mappedBy="advertisementId")
 	Set<Image> images;
@@ -91,7 +91,7 @@ public class Advertisement {
 		
 		this.category = CATEGORY.MOTORORYZACJA;
 		this.isActive = false;
-		this.isActive = true;
+		this.isPremium = true;
 		this.views = new Integer(0);
 		this.dateForm = LocalDate.now();
 		this.dateTo = this.dateForm.plusMonths(1);
@@ -99,11 +99,11 @@ public class Advertisement {
 		
 	}
 	
-	public Set<Message> getMessages() {
+	public Set<Conversation> getMessages() {
 		return messages;
 	}
 
-	public void setMessages(Set<Message> messages) {
+	public void setMessages(Set<Conversation> messages) {
 		this.messages = messages;
 	}
 

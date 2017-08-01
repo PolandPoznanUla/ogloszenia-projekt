@@ -50,10 +50,13 @@ Set<Advertisement> followedAdvertisement;
 Set<Advertisement> ads;
 
 @OneToMany(mappedBy="messageSender")
-Set<Message> sendMessages;
+Set<Conversation> sendMessages;
 
 @OneToMany(mappedBy="messageReceiver")
-Set<Message> receiveMessages;
+Set<Conversation> receiveMessages;
+
+@OneToMany(mappedBy="owner")
+Set<ConversationMessage> conversationMessages;
 
 public User() {};
 
