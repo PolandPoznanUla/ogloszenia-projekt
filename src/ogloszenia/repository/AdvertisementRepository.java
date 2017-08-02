@@ -1,6 +1,5 @@
 package ogloszenia.repository;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -11,58 +10,58 @@ import org.hibernate.Session;
 
 import ogloszenia.model.Advertisement;
 import ogloszenia.model.CATEGORY;
-import ogloszenia.model.Image;
+import ogloszenia.model.User;
 import ogloszeniar.hibernate.util.HibernateUtil;
 
 public class AdvertisementRepository {
+	
+	public static Optional<Advertisement> findById(Integer id) {
+		Session session = null;
+		try {
+			session = HibernateUtil.openSession();
+			String hql = "SELECT  e FROM Advertisement e WHERE e.id=:id";
+			Query query = session.createQuery(hql);
+			query.setParameter("id",id);
+			return Optional.ofNullable((Advertisement) query.getSingleResult());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			session.getTransaction().rollback();
+			return Optional.empty();
+		} finally {
+			session.close();
+		}
+	}
+	
+	public static List<Advertisement> findByCategory(CATEGORY category){
+		Session session = null;
+		try {
+			session = HibernateUtil.openSession();
+			String hql = "SELECT e FROM Advertisement e WHERE e.category=:category";
+			Query query = session.createQuery(hql);
+			query.setParameter("category", category);
+			return query.getResultList();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			session.getTransaction().rollback();
+			return Collections.emptyList();
+		} finally {
+			session.close();
+		}
+	}
 
-	public static Optional <Advertisement> findById(Integer id) {
-		Session session = null;
-		try {
-			session = HibernateUtil.openSession().getSession();
-			String hql = "SELECT e FROM ADVERTISEMENT e WHERE e.id =:id";
-					Query query = session.createQuery(hql);
-					query.setParameter("id", id);
-					return Optional.ofNullable((Advertisement) query.getSingleResult());
-			}catch(Exception ex) {
-				ex.printStackTrace();
-				session.getTransaction().rollback();
-				return Optional.empty();
-			}finally {
-				session.close();
-			}
-	}
-	
-	public static List<Advertisement> findByCategory(CATEGORY category) {
-		Session session = null;
-		try {
-			session = HibernateUtil.openSession().getSession();
-			String hql = "SELECT e FROM ADVERTISEMENT e WHERE e.category =:category";
-					Query query = session.createQuery(hql);
-					query.setParameter("category", category);
-					return query.getResultList();
-			}catch(Exception ex) {
-				ex.printStackTrace();
-				session.getTransaction().rollback();
-				return Collections.emptyList();
-			}finally {
-				session.close();
-			}
-	}
-	
 	public static Integer persist(Advertisement advertisement) {
 		Session session = null;
 		try {
-		session = HibernateUtil.openSession().getSession();
-		session.getTransaction().begin();
-		session.persist(advertisement);
-		session.getTransaction().commit();
-		return advertisement.getId();
-		}catch(Exception ex) {
+			session = HibernateUtil.openSession();
+			session.getTransaction().begin();
+			session.persist(advertisement);
+			session.getTransaction().commit();
+			return advertisement.getId();
+		} catch (Exception ex) {
 			ex.printStackTrace();
 			session.getTransaction().rollback();
 			return 0;
-		}finally {
+		} finally {
 			session.close();
 		}
 
@@ -71,17 +70,16 @@ public class AdvertisementRepository {
 	public static boolean merge(Advertisement advertisement) {
 		Session session = null;
 		try {
-			
-		session = HibernateUtil.openSession().getSession();
-		session.getTransaction().begin();
-		session.merge(advertisement);
-		session.getTransaction().commit();
-		return true;
-		}catch(Exception ex) {
+			session = HibernateUtil.openSession();
+			session.getTransaction().begin();
+			session.merge(advertisement);
+			session.getTransaction().commit();
+			return true;
+		} catch (Exception ex) {
 			ex.printStackTrace();
 			session.getTransaction().rollback();
 			return false;
-		}finally {
+		} finally {
 			session.close();
 		}
 
@@ -90,26 +88,26 @@ public class AdvertisementRepository {
 	public static boolean delete(Integer id) {
 		Session session = null;
 		try {
-			
-		session = HibernateUtil.openSession().getSession();
 		
-		Optional<Advertisement> advertisement = findById(id);
-		if (advertisement.isPresent()) {
-			session.getTransaction().begin();
-			advertisement.get().setIsActive(false);
-			session.merge(advertisement.get());
-			session.getTransaction().commit();
-			return true;
-		} 
+			session = HibernateUtil.openSession();
+		
+			Optional<Advertisement> advertisement = findById(id);
+			if (advertisement.isPresent()) {
+				session.getTransaction().begin();
+				advertisement.get().setIsActive(false);
+				session.merge(advertisement.get());
+				session.getTransaction().commit();
+				return true;
+			}
 			return false;
-		}catch(Exception ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 			session.getTransaction().rollback();
 			return false;
-		}finally {
+		} finally {
 			session.close();
 		}
 
 	}
-	
+
 }

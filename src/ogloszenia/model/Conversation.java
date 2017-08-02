@@ -13,9 +13,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+/*
+ * Wiadomosc
+    id ogloszenia
+    id nadawca
+    id odbiorca
+    tresc
+    data
+ */
+
 @Entity
 public class Conversation {
-
+	
 	@Id
 	@Column(name="id", unique=true)
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -23,23 +32,27 @@ public class Conversation {
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(nullable=false)
-	private Advertisement advertisement;
+	private Advertisement advertisementId;
 	
 	@JoinColumn(nullable=false)
 	@ManyToOne
-	private User messageSender;
+	private User conversationSender;
 	
 	@JoinColumn(nullable=false)
 	@ManyToOne
-	User messageReceiver;
+	private User conversationReceiver;
+	
 	
 	@OneToMany(mappedBy="conversation")
-	Set<ConversationMessage> conversationMessages;
+	Set<ConversationMessage> conversationMessage;
 	
+	@Column(nullable=false)
+	private LocalDate messageDate;
+	
+
 	public Conversation() {
-		super();
 	}
-		
+
 	public Integer getId() {
 		return id;
 	}
@@ -48,31 +61,31 @@ public class Conversation {
 		this.id = id;
 	}
 
-	public Advertisement getAdvertisement() {
-		return advertisement;
+	public Advertisement getAdvertisementId() {
+		return advertisementId;
 	}
 
-	public void setAdvertisement(Advertisement advertisement) {
-		this.advertisement = advertisement;
+	public void setAdvertisementId(Advertisement advertisementId) {
+		this.advertisementId = advertisementId;
 	}
 
-	public User getMessageSender() {
-		return messageSender;
+	public User getConversationSender() {
+		return conversationSender;
 	}
 
-	public void setMessageSender(User messageSender) {
-		this.messageSender = messageSender;
+	public void setConversationSender(User messageSender) {
+		this.conversationSender = messageSender;
 	}
 
-	public User getMessageReceiver() {
-		return messageReceiver;
+	public User getConversationReceiver() {
+		return conversationReceiver;
 	}
 
-	public void setMessageReceiver(User messageReceiver) {
-		this.messageReceiver = messageReceiver;
+	public void setConversationReceiver(User messageReceiver) {
+		this.conversationReceiver = messageReceiver;
 	}
 
-	
+
 
 	public LocalDate getMessageDate() {
 		return messageDate;
@@ -81,13 +94,9 @@ public class Conversation {
 	public void setMessageDate(LocalDate messageDate) {
 		this.messageDate = messageDate;
 	}
+	
+	
+	
+	
 
-	@Column(nullable=false)
-	private LocalDate messageDate;
-
-	
-	
-	
-	
-	
 }

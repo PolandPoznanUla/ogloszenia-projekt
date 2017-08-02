@@ -9,20 +9,55 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
+/*
+ * Zdjecie
+    id ogloszenia
+    zdjecie
+    
+ */
+
 @Entity
 public class Image {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true)
+	private Integer id;
+	
+	@ManyToOne
+	@JoinColumn(nullable=false)
+	private Advertisement advertisement;
+	
+	@Lob
+	private byte[] img;
 
-@Id
-@GeneratedValue(strategy=GenerationType.IDENTITY)
-@Column(unique=true)
-private Integer id;
+	public Integer getId() {
+		return id;
+	}
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-@ManyToOne
-@JoinColumn(nullable=false)
-private Advertisement advertisementId;
+	public Advertisement getAdvertisementId() {
+		return advertisement;
+	}
 
-@Lob
-private byte[] img;
+	public void setAdvertisementId(Advertisement advertisement) {
+		this.advertisement = advertisement;
+	}
+
+	public byte[] getImg() {
+		return img;
+	}
+
+	public void setImg(byte[] img) {
+		this.img = img;
+	}
+
+	public Image() {}
+	
+	
+	
 
 }

@@ -1,32 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
-  <display-name>Ogloszenia</display-name>
-  
-  <servlet>
-  	<servlet-name>newAddServlet</servlet-name>
-  	<servlet-class>ogloszenia.AddNewAdServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>newAddServlet</servlet-name>
-  	<url-pattern>/ad-new-ad</url-pattern>
-  </servlet-mapping>
-  
-   <servlet>
-  	<servlet-name>registerUserServlet</servlet-name>
-  	<servlet-class>ogloszenia.RegisterUserServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>registerUserServlet</servlet-name>
-  	<url-pattern>/reg-new-user</url-pattern>
-  </servlet-mapping>
-  
-    <servlet>
-  	<servlet-name>addToArchiveServlet</servlet-name>
-  	<servlet-class>ogloszenia.AddToArchiveServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>addToArchiveServlet</servlet-name>
-  	<url-pattern>/add-to-archive</url-pattern>
-  </servlet-mapping>
-  
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>Ogloszenia</display-name>
+
+	<servlet>
+		<servlet-name>addNewServlet</servlet-name>
+		<servlet-class>ogloszenia.AddNewAdServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>addNewServlet</servlet-name>
+		<url-pattern>/ad-new-ad</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>registerUserServlet</servlet-name>
+		<servlet-class>ogloszenia.RegisterUserServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>registerUserServlet</servlet-name>
+		<url-pattern>/reg-new-user</url-pattern>
+	</servlet-mapping>
+
+
 </web-app>

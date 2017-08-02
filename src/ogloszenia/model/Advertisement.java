@@ -2,6 +2,7 @@ package ogloszenia.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -19,10 +20,26 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.NotFound;
 
 @Entity
+
 public class Advertisement {
+	/*
+	tytul
+    zdjecie
+    wlasciciel
+    cena
+    tresc
+    data od
+    data do
+    czy aktywne
+    czy premium
+    city name
+    ocena od osoby kupujacej
+    kategoria
+    liczba wyswietlen
+	 */
+	
 	
 	
 	@Id
@@ -30,16 +47,17 @@ public class Advertisement {
 	@Column(unique=true)
 	Integer id;
 	
+	
 	@Column(nullable=false)
 	String title;
 	
 	@Lob
-	byte[] img;
+	byte[] img;						
 	
 	@JoinColumn(nullable=false)
 	@ManyToOne(cascade=CascadeType.ALL)
 	User owner; 
-		
+
 	@Column(nullable=false)
 	BigDecimal price;
 	
@@ -47,7 +65,7 @@ public class Advertisement {
 	String text;
 	
 	@Column(nullable=false)
-	LocalDate dateForm;
+	LocalDate dateFrom;
 	
 	@Column(nullable=false)
 	LocalDate dateTo;
@@ -55,7 +73,7 @@ public class Advertisement {
 	@Column(nullable=false)
 	Boolean isActive;
 	
-	@Column(nullable=true)
+	@Column(nullable=false)
 	Boolean isPremium;
 	
 	@Column(nullable=false)
@@ -65,22 +83,27 @@ public class Advertisement {
 	Integer rating;
 	
 	@Column(nullable=false)
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	CATEGORY category;
+	
+	@Column(nullable=false)
+	Integer views;
 	
 	@ManyToMany
 	@JoinTable(
-			joinColumns=@JoinColumn(name="user_id")
+			joinColumns=@JoinColumn(name="user_id", referencedColumnName="id"),
+			inverseJoinColumns=@JoinColumn(name="watcher_id")
 			)
-	Set<User> watchers;
-	
-	@OneToMany(mappedBy="advertisement")
-	Set<Conversation> messages;
+	Set <User> watchers;
 	
 	@OneToMany(mappedBy="advertisementId")
+	Set<Conversation> messages;
+	
+	@OneToMany(mappedBy="advertisement")
 	Set<Image> images;
 	
-	public void Advertisemesernt(){}
+	
+	public Advertisement(){}
 	
 	public Advertisement(String title, BigDecimal price, String description, String location, User user) {
 		this.title = title;
@@ -89,43 +112,26 @@ public class Advertisement {
 		this.cityName = location;
 		this.owner = user;
 		
-		this.category = CATEGORY.MOTORORYZACJA;
-		this.isActive = false;
-		this.isPremium = true;
-		this.views = new Integer(0);
-		this.dateForm = LocalDate.now();
-		this.dateTo = this.dateForm.plusMonths(1);
+		this.category = CATEGORY.MOTORYZACJA;
+		this.isPremium = false;
+		this.isActive = true;
+		this.views = 0;
+		this.dateFrom = LocalDate.now();
+		this.dateTo = this.dateFrom.plusMonths(1);
 		this.rating = 0;
 		
 	}
 	
-	public Set<Conversation> getMessages() {
-		return messages;
-	}
-
-	public void setMessages(Set<Conversation> messages) {
-		this.messages = messages;
-	}
-
-	public Set<Image> getImages() {
-		return images;
-	}
-
-	public void setImages(Set<Image> images) {
-		this.images = images;
-	}
-
-	public LocalDate getDateTo() {
-		return dateTo;
-	}
-
 	public byte[] getImg() {
 		return img;
 	}
-	
+
+
+
 	public void setImg(byte[] img) {
 		this.img = img;
 	}
+
 	
 	public String getTitle() {
 		return title;
@@ -133,14 +139,6 @@ public class Advertisement {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public User getOwner() {
-		return owner;
-	}
-
-	public void setOwner(User owner) {
-		this.owner = owner;
 	}
 
 	public BigDecimal getPrice() {
@@ -159,18 +157,21 @@ public class Advertisement {
 		this.text = text;
 	}
 
-	public LocalDate getDateForm() {
-		return dateForm;
+	public LocalDate getDateFrom() {
+		return dateFrom;
 	}
 
-	public void setDateForm(LocalDate dateForm) {
-		this.dateForm = dateForm;
+	public void setDateFrom(LocalDate dateFrom) {
+		this.dateFrom = dateFrom;
+	}
+
+	public LocalDate getDateTo() {
+		return dateTo;
 	}
 
 	public void setDateTo(LocalDate dateTo) {
 		this.dateTo = dateTo;
 	}
-
 
 	public Boolean getIsActive() {
 		return isActive;
@@ -220,8 +221,6 @@ public class Advertisement {
 		this.views = views;
 	}
 
-	Integer views;
-	
 	public Integer getId() {
 		return id;
 	}
@@ -230,6 +229,13 @@ public class Advertisement {
 		this.id = id;
 	}
 
-	
+	public User getOwner() {
+		return owner;
+	}
+
+
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
 
 }

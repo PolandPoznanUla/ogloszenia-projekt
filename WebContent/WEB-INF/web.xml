@@ -2,11 +2,11 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
   <display-name>Ogloszenia</display-name>
   <servlet>
-    <servlet-name>newAddServlet</servlet-name>
+    <servlet-name>addNewServlet</servlet-name>
     <servlet-class>ogloszenia.AddNewAdServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>newAddServlet</servlet-name>
+    <servlet-name>addNewServlet</servlet-name>
     <url-pattern>/ad-new-ad</url-pattern>
   </servlet-mapping>
   <servlet>
@@ -18,19 +18,23 @@
     <url-pattern>/reg-new-user</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>addToArchiveServlet</servlet-name>
-    <servlet-class>ogloszenia.AddToArchiveServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>addToArchiveServlet</servlet-name>
-    <url-pattern>/add-to-archive</url-pattern>
-  </servlet-mapping>
-    <servlet>
+    <description></description>
+    <display-name>AddNewMessageServlet</display-name>
     <servlet-name>AddNewMessageServlet</servlet-name>
     <servlet-class>ogloszenia.AddNewMessageServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>AddNewMessageServlet</servlet-name>
-    <url-pattern>/new-message</url-pattern>
+    <url-pattern>/AddNewMessageServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddNewConversationMessageServlet</display-name>
+    <servlet-name>AddNewConversationMessageServlet</servlet-name>
+    <servlet-class>ogloszenia.AddNewConversationMessageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddNewConversationMessageServlet</servlet-name>
+    <url-pattern>/AddNewConversationMessageServlet</url-pattern>
   </servlet-mapping>
 </web-app>
