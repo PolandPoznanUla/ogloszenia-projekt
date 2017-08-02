@@ -19,13 +19,13 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>AddNewMessageServlet</display-name>
-    <servlet-name>AddNewMessageServlet</servlet-name>
-    <servlet-class>ogloszenia.AddNewMessageServlet</servlet-class>
+    <display-name>AddNewConversationServlet</display-name>
+    <servlet-name>AddNewConversationServlet</servlet-name>
+    <servlet-class>ogloszenia.AddNewConversationServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>AddNewMessageServlet</servlet-name>
-    <url-pattern>/AddNewMessageServlet</url-pattern>
+    <servlet-name>AddNewConversationServlet</servlet-name>
+    <url-pattern>/AddNewConversationServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -36,5 +36,15 @@
   <servlet-mapping>
     <servlet-name>AddNewConversationMessageServlet</servlet-name>
     <url-pattern>/AddNewConversationMessageServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SearchAdServlet</display-name>
+    <servlet-name>SearchAdServlet</servlet-name>
+    <servlet-class>ogloszenia.SearchAdServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchAdServlet</servlet-name>
+    <url-pattern>/search</url-pattern>
   </servlet-mapping>
 </web-app>
